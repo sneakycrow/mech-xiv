@@ -19,6 +19,6 @@ jobs:
         with:
           node-version: 22
           cache: 'yarn'
-      - run: yarn playwright install
       - run: yarn install
+      - run: yarn playwright install
       - run: yarn test
