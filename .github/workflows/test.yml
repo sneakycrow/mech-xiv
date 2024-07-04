@@ -1,0 +1,22 @@
+name: 'run tests'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - docs-ci-cd # TMP: remove this line after the docs-ci-cd branch is merged
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+      - run: yarn install
+      - run: yarn test
