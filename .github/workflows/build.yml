@@ -7,7 +7,6 @@ on:
   pull_request:
     branches:
       - main
-      - docs-ci-cd # TODO: Remove this line after the docs-ci-cd branch is merged
 
 jobs:
   test:
