@@ -1,4 +1,4 @@
-name: 'run tests'
+name: 'Run Tests'
 
 on:
   push:
@@ -18,5 +18,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 22
+          cache: 'yarn'
+      - run: yarn playwright install
       - run: yarn install
       - run: yarn test
