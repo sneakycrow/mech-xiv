@@ -20,6 +20,7 @@ model User {
 enum UserRole {
   USER
   ADMIN
+  EDITOR
 }
 
 model Session {
