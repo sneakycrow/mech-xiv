@@ -1,6 +1,6 @@
 import { join } from 'path';
 import type { Config } from 'tailwindcss';
-import { pinkNovaTheme } from './themes';
+import { sharlayanTheme } from './themes';
 
 import { skeleton } from '@skeletonlabs/tw-plugin';
 
@@ -40,7 +40,7 @@ const config = {
 	plugins: [
 		skeleton({
 			themes: {
-				custom: [pinkNovaTheme]
+				custom: [sharlayanTheme]
 			}
 		})
 	]
