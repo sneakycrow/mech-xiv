@@ -1,16 +1,18 @@
 # syntax = docker/dockerfile:1
 
-# Adjust BUN_VERSION as desired
-ARG BUN_VERSION=1.1.18
-FROM oven/bun:${BUN_VERSION}-slim as base
+# Adjust NODE_VERSION as desired
+ARG NODE_VERSION=22.3.0
+FROM node:${NODE_VERSION}-slim as base
 
-LABEL fly_launch_runtime="SvelteKit"
+LABEL fly_launch_runtime="SvelteKit/Prisma"
 
-# SvelteKit app lives here
+# SvelteKit/Prisma app lives here
 WORKDIR /app
 
 # Set production environment
 ENV NODE_ENV="production"
+ARG YARN_VERSION=1.22.22
+RUN npm install -g yarn@$YARN_VERSION --force
 
 
 # Throw-away build stage to reduce size of final image
@@ -18,25 +20,33 @@ FROM base as build
 
 # Install packages needed to build node modules
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential pkg-config python-is-python3
+    apt-get install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
 
 # Install node modules
-COPY --link .npmrc bun.lockb package.json ./
-RUN bun install
+COPY --link .npmrc package.json yarn.lock ./
+RUN yarn install --frozen-lockfile --production=false
+
+# Generate Prisma Client
+COPY --link prisma .
+RUN npx prisma generate
 
 # Copy application code
 COPY --link . .
 
 # Build application
-RUN bun --bun run build
+RUN yarn run build
 
 # Remove development dependencies
-RUN rm -rf node_modules && \
-    bun install --ci
+RUN yarn install --production=true
 
 
 # Final stage for app image
 FROM base
+
+# Install packages needed for deployment
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y openssl && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built application
 COPY --from=build /app/build /app/build
@@ -45,4 +55,4 @@ COPY --from=build /app/package.json /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "bun", "./build/index.js" ]
+CMD [ "yarn", "start" ]
