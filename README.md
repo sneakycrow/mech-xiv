@@ -1,5 +1,8 @@
 # sharlayan
 
+[![build](https://github.com/sneakycrow/sharlayan/actions/workflows/build.yml/badge.svg)](https://github.com/sneakycrow/sharlayan/actions/workflows/build.yml)
+[![test](https://github.com/sneakycrow/sharlayan/actions/workflows/test.yml/badge.svg)](https://github.com/sneakycrow/sharlayan/actions/workflows/test.yml)
+
 A web app for viewing and managing Final Fantasy XIV guides
 
 Including:
