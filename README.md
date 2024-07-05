@@ -1,4 +1,4 @@
-# mech-xiv
+# sharlayan
 
 A web app for viewing and managing Final Fantasy XIV guides
 
