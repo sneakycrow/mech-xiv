@@ -1,1 +1,1 @@
-export { pinkNovaTheme } from './pinkNova';
+export { sharlayanTheme } from './sharlayan';

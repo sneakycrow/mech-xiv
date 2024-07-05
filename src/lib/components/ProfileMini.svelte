@@ -9,9 +9,10 @@
 		<div class="col-span-3">
 			<h1 class="text-2xl">{username}</h1>
 		</div>
-		<form action="/?/logout" method="post">
-			<button class="cursor-pointer font-semibold text-gray-400 hover:text-red-500" type="submit"
-				>Log Out</button
+		<form action="/?/logout" method="post" class="col-start-4 text-right">
+			<button
+				class="cursor-pointer font-semibold text-tertiary-600 hover:text-red-500"
+				type="submit">Log Out</button
 			>
 		</form>
 	</div>
