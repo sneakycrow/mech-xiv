@@ -6,6 +6,10 @@
 	export let data: PageServerData;
 </script>
 
+<svelte:head>
+	<title>sharlayan</title>
+</svelte:head>
+
 <section class="col-span-4 col-start-2 flex flex-col items-center justify-center space-y-4">
 	<article
 		class="rounded-md border-4 border-primary-500 bg-secondary-700 p-8 text-center shadow-xl"
